@@ -53,10 +53,11 @@
     transition:all .3s var(--transition);
   }
   header.nav.scrolled{border-bottom-color:var(--border);box-shadow:0 4px 30px rgba(10,37,64,.05)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
   .logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--navy);letter-spacing:.02em}
   .logo span{color:var(--accent)}
-  nav ul{list-style:none;display:flex;gap:2.2rem}
+  nav{display:flex;align-items:center;gap:1.6rem}
+  nav ul{list-style:none;display:flex;gap:2rem}
   nav a{font-size:.92rem;font-weight:500;color:var(--text);position:relative;padding:.3rem 0}
   nav a:after{content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--accent);transition:width .3s var(--transition)}
   nav a:hover:after{width:100%}
@@ -64,6 +65,23 @@
   .nav-cta:hover{background:var(--accent)}
   .nav-cta:after{display:none}
   .burger{display:none;background:none;border:none;cursor:pointer;font-size:1.5rem;color:var(--navy)}
+
+  /* === LANG SWITCH === */
+  .lang-switch{
+    display:inline-flex;align-items:center;gap:.4rem;
+    font-size:.78rem;font-weight:600;letter-spacing:.08em;
+    border:1px solid var(--border);border-radius:30px;padding:.25rem .35rem;
+    background:#fff;
+  }
+  .lang-switch button{
+    background:none;border:none;cursor:pointer;
+    padding:.3rem .65rem;border-radius:30px;
+    color:var(--text-muted);
+    font:inherit;letter-spacing:.08em;
+    transition:all .25s var(--transition);
+  }
+  .lang-switch button.active{background:var(--navy);color:#fff}
+  .lang-switch button:hover:not(.active){color:var(--navy)}
 
   /* === HERO === */
   .hero{
@@ -307,7 +325,8 @@
   /* === RESPONSIVE === */
   @media(max-width:980px){
     .about-grid,.contact-grid,.cta-inner{grid-template-columns:1fr;gap:3rem}
-    .services-grid,.team-grid,.insights-grid,.sectors-grid,.approach-grid{grid-template-columns:repeat(2,1fr)}
+    .services-grid,.insights-grid,.sectors-grid,.approach-grid{grid-template-columns:repeat(2,1fr)}
+    .team-grid{grid-template-columns:repeat(3,1fr)}
     .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
     .hero-stats .container{grid-template-columns:repeat(2,1fr)}
     .step:after{display:none}
@@ -319,7 +338,8 @@
     nav ul{display:none}
     .burger{display:block}
     nav.open ul{display:flex;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:1.5rem;gap:1rem;border-top:1px solid var(--border)}
-    .services-grid,.team-grid,.insights-grid,.sectors-grid,.approach-grid,.about-pillars{grid-template-columns:1fr}
+    .services-grid,.insights-grid,.sectors-grid,.approach-grid,.about-pillars{grid-template-columns:1fr}
+    .team-grid{grid-template-columns:repeat(2,1fr)}
     .footer-grid{grid-template-columns:1fr}
     .form-row{grid-template-columns:1fr}
     section{padding:4.5rem 0}
@@ -336,13 +356,17 @@
     <a href="#" class="logo">D<span>i</span>D<small style="font-family:'Inter',sans-serif;font-weight:500;font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-muted);margin-left:.6rem;vertical-align:middle">Consulting</small></a>
     <nav id="mainNav">
       <ul>
-        <li><a href="#about">À propos</a></li>
-        <li><a href="#services">Expertises</a></li>
-        <li><a href="#sectors">Secteurs</a></li>
-        <li><a href="#team">Équipe</a></li>
-        <li><a href="#insights">Publications</a></li>
-        <li><a href="#contact" class="nav-cta">Nous contacter</a></li>
+        <li><a href="#about" data-i18n="nav.about">À propos</a></li>
+        <li><a href="#services" data-i18n="nav.services">Expertises</a></li>
+        <li><a href="#sectors" data-i18n="nav.sectors">Secteurs</a></li>
+        <li><a href="#team" data-i18n="nav.team">Équipe</a></li>
+        <li><a href="#insights" data-i18n="nav.insights">Publications</a></li>
+        <li><a href="#contact" class="nav-cta" data-i18n="nav.cta">Nous contacter</a></li>
       </ul>
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="fr" class="active">FR</button>
+        <button data-lang="en">EN</button>
+      </div>
     </nav>
     <button class="burger" id="burger" aria-label="Menu">☰</button>
   </div>
@@ -351,20 +375,20 @@
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="container hero-content">
-    <span class="eyebrow reveal">Conseil indépendant · Évaluation · Études</span>
-    <h1 class="reveal">Des données probantes <em>pour de meilleures politiques publiques.</em></h1>
-    <p class="lead reveal">Nous accompagnons les institutions internationales, les gouvernements et les bailleurs de fonds dans l'évaluation, la conception et la mise en œuvre de politiques publiques fondées sur les preuves.</p>
+    <span class="eyebrow reveal" data-i18n="hero.eyebrow">Conseil indépendant · Évaluation · Études</span>
+    <h1 class="reveal" data-i18n="hero.title">Des données probantes <em>pour de meilleures politiques publiques.</em></h1>
+    <p class="lead reveal" data-i18n="hero.lead">Nous accompagnons les institutions internationales, les gouvernements et les bailleurs de fonds dans l'évaluation, la conception et la mise en œuvre de politiques publiques fondées sur les preuves.</p>
     <div class="hero-actions reveal">
-      <a href="#services" class="btn btn-primary">Découvrir nos expertises <span class="arr">→</span></a>
-      <a href="#contact" class="btn btn-ghost">Travailler avec nous</a>
+      <a href="#services" class="btn btn-primary" data-i18n="hero.btn1">Découvrir nos expertises <span class="arr">→</span></a>
+      <a href="#contact" class="btn btn-ghost" data-i18n="hero.btn2">Travailler avec nous</a>
     </div>
   </div>
   <div class="hero-stats">
     <div class="container">
-      <div class="stat"><span class="num">+250</span><span class="lbl">Missions menées</span></div>
-      <div class="stat"><span class="num">45</span><span class="lbl">Pays d'intervention</span></div>
-      <div class="stat"><span class="num">30+</span><span class="lbl">Consultants experts</span></div>
-      <div class="stat"><span class="num">15</span><span class="lbl">Années d'expérience</span></div>
+      <div class="stat"><span class="num">+250</span><span class="lbl" data-i18n="hero.stat1">Missions menées</span></div>
+      <div class="stat"><span class="num">45</span><span class="lbl" data-i18n="hero.stat2">Pays d'intervention</span></div>
+      <div class="stat"><span class="num">30+</span><span class="lbl" data-i18n="hero.stat3">Consultants experts</span></div>
+      <div class="stat"><span class="num">15</span><span class="lbl" data-i18n="hero.stat4">Années d'expérience</span></div>
     </div>
   </div>
 </section>
@@ -374,19 +398,19 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-text reveal">
-        <span class="section-eyebrow">À propos</span>
-        <h2>Un cabinet engagé pour l'efficacité des politiques publiques.</h2>
-        <p>Fondé par une équipe d'économistes, d'évaluateurs et de spécialistes des politiques publiques, notre cabinet se distingue par son indépendance, la rigueur de ses méthodes et son engagement à transformer les données en décisions.</p>
-        <p>Nous croyons qu'une politique publique bien conçue commence par une compréhension fine du contexte, des bénéficiaires et des chaînes de causalité. C'est cette conviction qui guide chacune de nos interventions.</p>
+        <span class="section-eyebrow" data-i18n="about.eyebrow">À propos</span>
+        <h2 data-i18n="about.title">Un cabinet engagé pour l'efficacité des politiques publiques.</h2>
+        <p data-i18n="about.p1">Fondé par une équipe d'économistes, d'évaluateurs et de spécialistes des politiques publiques, notre cabinet se distingue par son indépendance, la rigueur de ses méthodes et son engagement à transformer les données en décisions.</p>
+        <p data-i18n="about.p2">Nous croyons qu'une politique publique bien conçue commence par une compréhension fine du contexte, des bénéficiaires et des chaînes de causalité. C'est cette conviction qui guide chacune de nos interventions.</p>
         <div class="about-pillars">
-          <div class="pillar"><h4>Indépendance</h4><p>Aucun lien d'intérêt, aucune complaisance. Nos conclusions ne reflètent que les faits.</p></div>
-          <div class="pillar"><h4>Rigueur</h4><p>Méthodes mixtes, triangulation, revue par les pairs : la qualité au cœur de nos livrables.</p></div>
-          <div class="pillar"><h4>Pragmatisme</h4><p>Des recommandations actionnables, ancrées dans les réalités opérationnelles.</p></div>
-          <div class="pillar"><h4>Transparence</h4><p>Méthodologie ouverte, données partagées, processus auditables.</p></div>
+          <div class="pillar"><h4 data-i18n="about.pillar1.t">Indépendance</h4><p data-i18n="about.pillar1.d">Aucun lien d'intérêt, aucune complaisance. Nos conclusions ne reflètent que les faits.</p></div>
+          <div class="pillar"><h4 data-i18n="about.pillar2.t">Rigueur</h4><p data-i18n="about.pillar2.d">Méthodes mixtes, triangulation, revue par les pairs : la qualité au cœur de nos livrables.</p></div>
+          <div class="pillar"><h4 data-i18n="about.pillar3.t">Pragmatisme</h4><p data-i18n="about.pillar3.d">Des recommandations actionnables, ancrées dans les réalités opérationnelles.</p></div>
+          <div class="pillar"><h4 data-i18n="about.pillar4.t">Transparence</h4><p data-i18n="about.pillar4.d">Méthodologie ouverte, données partagées, processus auditables.</p></div>
         </div>
       </div>
       <div class="about-img reveal">
-        <div class="about-quote">« Notre mission : produire les preuves qui éclairent les décisions et améliorent la vie des populations. »</div>
+        <div class="about-quote" data-i18n="about.quote">« Notre mission : produire les preuves qui éclairent les décisions et améliorent la vie des populations. »</div>
       </div>
     </div>
   </div>
@@ -396,9 +420,9 @@
 <section id="services">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Nos expertises</span>
-      <h2>Quatre domaines d'intervention complémentaires.</h2>
-      <p>De l'évaluation rétrospective au conseil stratégique en passant par l'assistance technique, nous mobilisons des équipes pluridisciplinaires adaptées à chaque mission.</p>
+      <span class="section-eyebrow" data-i18n="services.eyebrow">Nos expertises</span>
+      <h2 data-i18n="services.title">Six domaines d'intervention complémentaires.</h2>
+      <p data-i18n="services.lead">De l'évaluation rétrospective au conseil stratégique en passant par l'assistance technique, nous mobilisons des équipes pluridisciplinaires adaptées à chaque mission.</p>
     </div>
     <div class="services-grid">
 
@@ -406,13 +430,13 @@
         <div class="service-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 6-6"/></svg>
         </div>
-        <h3>Évaluation</h3>
-        <p>Évaluations ex-ante, à mi-parcours, finales et d'impact, conduites selon les standards internationaux (CAD-OCDE, UNEG, EvalPartners).</p>
+        <h3 data-i18n="srv1.t">Évaluation</h3>
+        <p data-i18n="srv1.d">Évaluations ex-ante, à mi-parcours, finales et d'impact, conduites selon les standards internationaux (CAD-OCDE, UNEG, EvalPartners).</p>
         <ul>
-          <li>Évaluations de programmes et projets</li>
-          <li>Évaluations de politiques sectorielles</li>
-          <li>Évaluations stratégiques pays</li>
-          <li>Méta-évaluations et synthèses</li>
+          <li data-i18n="srv1.l1">Évaluations de programmes et projets</li>
+          <li data-i18n="srv1.l2">Évaluations de politiques sectorielles</li>
+          <li data-i18n="srv1.l3">Évaluations stratégiques pays</li>
+          <li data-i18n="srv1.l4">Méta-évaluations et synthèses</li>
         </ul>
       </div>
 
@@ -420,13 +444,13 @@
         <div class="service-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         </div>
-        <h3>Études & Recherches</h3>
-        <p>Études diagnostiques, analyses sectorielles, recherches appliquées et travaux prospectifs pour éclairer les décideurs.</p>
+        <h3 data-i18n="srv2.t">Études & Recherches</h3>
+        <p data-i18n="srv2.d">Études diagnostiques, analyses sectorielles, recherches appliquées et travaux prospectifs pour éclairer les décideurs.</p>
         <ul>
-          <li>Études de faisabilité et d'opportunité</li>
-          <li>Diagnostics sectoriels et institutionnels</li>
-          <li>Analyses coûts-bénéfices</li>
-          <li>Études prospectives et de scénarios</li>
+          <li data-i18n="srv2.l1">Études de faisabilité et d'opportunité</li>
+          <li data-i18n="srv2.l2">Diagnostics sectoriels et institutionnels</li>
+          <li data-i18n="srv2.l3">Analyses coûts-bénéfices</li>
+          <li data-i18n="srv2.l4">Études prospectives et de scénarios</li>
         </ul>
       </div>
 
@@ -434,13 +458,13 @@
         <div class="service-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
         </div>
-        <h3>Assistance technique</h3>
-        <p>Appui à la conception, à la mise en œuvre et au suivi de programmes complexes, sur le terrain comme à distance.</p>
+        <h3 data-i18n="srv3.t">Assistance technique</h3>
+        <p data-i18n="srv3.d">Appui à la conception, à la mise en œuvre et au suivi de programmes complexes, sur le terrain comme à distance.</p>
         <ul>
-          <li>Appui à la maîtrise d'ouvrage</li>
-          <li>Conception de cadres logiques</li>
-          <li>Systèmes de suivi-évaluation</li>
-          <li>Gestion axée sur les résultats</li>
+          <li data-i18n="srv3.l1">Appui à la maîtrise d'ouvrage</li>
+          <li data-i18n="srv3.l2">Conception de cadres logiques</li>
+          <li data-i18n="srv3.l3">Systèmes de suivi-évaluation</li>
+          <li data-i18n="srv3.l4">Gestion axée sur les résultats</li>
         </ul>
       </div>
 
@@ -448,13 +472,13 @@
         <div class="service-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h3>Renforcement des capacités</h3>
-        <p>Formation, coaching et accompagnement des institutions pour ancrer durablement les bonnes pratiques d'évaluation et de pilotage.</p>
+        <h3 data-i18n="srv4.t">Renforcement des capacités</h3>
+        <p data-i18n="srv4.d">Formation, coaching et accompagnement des institutions pour ancrer durablement les bonnes pratiques d'évaluation et de pilotage.</p>
         <ul>
-          <li>Formations sur mesure</li>
-          <li>Ateliers méthodologiques</li>
-          <li>Mentoring d'équipes nationales</li>
-          <li>Communautés de pratique</li>
+          <li data-i18n="srv4.l1">Formations sur mesure</li>
+          <li data-i18n="srv4.l2">Ateliers méthodologiques</li>
+          <li data-i18n="srv4.l3">Mentoring d'équipes nationales</li>
+          <li data-i18n="srv4.l4">Communautés de pratique</li>
         </ul>
       </div>
 
@@ -462,13 +486,13 @@
         <div class="service-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         </div>
-        <h3>Conseil stratégique</h3>
-        <p>Accompagnement des dirigeants dans la formulation de stratégies, la définition de priorités et la conduite du changement.</p>
+        <h3 data-i18n="srv5.t">Conseil stratégique</h3>
+        <p data-i18n="srv5.d">Accompagnement des dirigeants dans la formulation de stratégies, la définition de priorités et la conduite du changement.</p>
         <ul>
-          <li>Stratégies sectorielles et nationales</li>
-          <li>Théories du changement</li>
-          <li>Plans d'action opérationnels</li>
-          <li>Conduite du changement</li>
+          <li data-i18n="srv5.l1">Stratégies sectorielles et nationales</li>
+          <li data-i18n="srv5.l2">Théories du changement</li>
+          <li data-i18n="srv5.l3">Plans d'action opérationnels</li>
+          <li data-i18n="srv5.l4">Conduite du changement</li>
         </ul>
       </div>
 
@@ -476,13 +500,13 @@
         <div class="service-icon">
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
-        <h3>Data & Analytics</h3>
-        <p>Mobilisation de la donnée — quantitative, qualitative, géospatiale — pour produire des insights inédits et fonder l'action publique.</p>
+        <h3 data-i18n="srv6.t">Data & Analytics</h3>
+        <p data-i18n="srv6.d">Mobilisation de la donnée — quantitative, qualitative, géospatiale — pour produire des insights inédits et fonder l'action publique.</p>
         <ul>
-          <li>Enquêtes et collectes terrain</li>
-          <li>Analyse économétrique</li>
-          <li>Tableaux de bord et visualisation</li>
-          <li>Méthodes mixtes innovantes</li>
+          <li data-i18n="srv6.l1">Enquêtes et collectes terrain</li>
+          <li data-i18n="srv6.l2">Analyse économétrique</li>
+          <li data-i18n="srv6.l3">Tableaux de bord et visualisation</li>
+          <li data-i18n="srv6.l4">Méthodes mixtes innovantes</li>
         </ul>
       </div>
 
@@ -494,19 +518,19 @@
 <section class="sectors" id="sectors">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Secteurs</span>
-      <h2>Une expertise sectorielle approfondie.</h2>
-      <p>Nous intervenons dans les domaines où les politiques publiques ont le plus d'impact sur la vie des populations.</p>
+      <span class="section-eyebrow" data-i18n="sec.eyebrow">Secteurs</span>
+      <h2 data-i18n="sec.title">Une expertise sectorielle approfondie.</h2>
+      <p data-i18n="sec.lead">Nous intervenons dans les domaines où les politiques publiques ont le plus d'impact sur la vie des populations.</p>
     </div>
     <div class="sectors-grid">
-      <div class="sector reveal"><div class="num">01</div><h4>Développement durable</h4><p>Climat, biodiversité, transition énergétique, économie circulaire.</p></div>
-      <div class="sector reveal"><div class="num">02</div><h4>Éducation & Formation</h4><p>Systèmes éducatifs, formation professionnelle, apprentissage tout au long de la vie.</p></div>
-      <div class="sector reveal"><div class="num">03</div><h4>Santé publique</h4><p>Systèmes de santé, couverture universelle, santé maternelle et infantile.</p></div>
-      <div class="sector reveal"><div class="num">04</div><h4>Gouvernance</h4><p>Réformes institutionnelles, lutte contre la corruption, démocratie participative.</p></div>
-      <div class="sector reveal"><div class="num">05</div><h4>Développement rural</h4><p>Agriculture, sécurité alimentaire, chaînes de valeur, foncier rural.</p></div>
-      <div class="sector reveal"><div class="num">06</div><h4>Croissance inclusive</h4><p>Emploi, secteur privé, micro-finance, entrepreneuriat des jeunes.</p></div>
-      <div class="sector reveal"><div class="num">07</div><h4>Migration & déplacement</h4><p>Politiques migratoires, intégration, protection des réfugiés.</p></div>
-      <div class="sector reveal"><div class="num">08</div><h4>Égalité de genre</h4><p>Autonomisation des femmes, lutte contre les violences, gender mainstreaming.</p></div>
+      <div class="sector reveal"><div class="num">01</div><h4 data-i18n="sec1.t">Développement durable</h4><p data-i18n="sec1.d">Climat, biodiversité, transition énergétique, économie circulaire.</p></div>
+      <div class="sector reveal"><div class="num">02</div><h4 data-i18n="sec2.t">Éducation & Formation</h4><p data-i18n="sec2.d">Systèmes éducatifs, formation professionnelle, apprentissage tout au long de la vie.</p></div>
+      <div class="sector reveal"><div class="num">03</div><h4 data-i18n="sec3.t">Santé publique</h4><p data-i18n="sec3.d">Systèmes de santé, couverture universelle, santé maternelle et infantile.</p></div>
+      <div class="sector reveal"><div class="num">04</div><h4 data-i18n="sec4.t">Gouvernance</h4><p data-i18n="sec4.d">Réformes institutionnelles, lutte contre la corruption, démocratie participative.</p></div>
+      <div class="sector reveal"><div class="num">05</div><h4 data-i18n="sec5.t">Développement rural</h4><p data-i18n="sec5.d">Agriculture, sécurité alimentaire, chaînes de valeur, foncier rural.</p></div>
+      <div class="sector reveal"><div class="num">06</div><h4 data-i18n="sec6.t">Croissance inclusive</h4><p data-i18n="sec6.d">Emploi, secteur privé, micro-finance, entrepreneuriat des jeunes.</p></div>
+      <div class="sector reveal"><div class="num">07</div><h4 data-i18n="sec7.t">Migration & déplacement</h4><p data-i18n="sec7.d">Politiques migratoires, intégration, protection des réfugiés.</p></div>
+      <div class="sector reveal"><div class="num">08</div><h4 data-i18n="sec8.t">Égalité de genre</h4><p data-i18n="sec8.d">Autonomisation des femmes, lutte contre les violences, gender mainstreaming.</p></div>
     </div>
   </div>
 </section>
@@ -515,30 +539,30 @@
 <section class="approach">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Notre approche</span>
-      <h2>Une méthodologie en quatre temps.</h2>
-      <p>Chaque mission s'inscrit dans une démarche structurée et collaborative, du cadrage initial à la valorisation des résultats.</p>
+      <span class="section-eyebrow" data-i18n="app.eyebrow">Notre approche</span>
+      <h2 data-i18n="app.title">Une méthodologie en quatre temps.</h2>
+      <p data-i18n="app.lead">Chaque mission s'inscrit dans une démarche structurée et collaborative, du cadrage initial à la valorisation des résultats.</p>
     </div>
     <div class="approach-grid">
       <div class="step reveal">
         <div class="step-num">01</div>
-        <h4>Cadrage</h4>
-        <p>Compréhension du contexte, des enjeux et des attentes. Co-construction d'une matrice d'évaluation partagée.</p>
+        <h4 data-i18n="app1.t">Cadrage</h4>
+        <p data-i18n="app1.d">Compréhension du contexte, des enjeux et des attentes. Co-construction d'une matrice d'évaluation partagée.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">02</div>
-        <h4>Collecte</h4>
-        <p>Revue documentaire, entretiens, missions terrain, enquêtes quantitatives, observations directes.</p>
+        <h4 data-i18n="app2.t">Collecte</h4>
+        <p data-i18n="app2.d">Revue documentaire, entretiens, missions terrain, enquêtes quantitatives, observations directes.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">03</div>
-        <h4>Analyse</h4>
-        <p>Triangulation, modélisation, restitution intermédiaire et validation croisée avec les parties prenantes.</p>
+        <h4 data-i18n="app3.t">Analyse</h4>
+        <p data-i18n="app3.d">Triangulation, modélisation, restitution intermédiaire et validation croisée avec les parties prenantes.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">04</div>
-        <h4>Restitution</h4>
-        <p>Rapport final, recommandations actionnables, atelier de dissémination et appui à l'apprentissage.</p>
+        <h4 data-i18n="app4.t">Restitution</h4>
+        <p data-i18n="app4.d">Rapport final, recommandations actionnables, atelier de dissémination et appui à l'apprentissage.</p>
       </div>
     </div>
   </div>
@@ -548,9 +572,9 @@
 <section id="team">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Notre équipe</span>
-      <h2>Des consultants engagés, expérimentés, reconnus.</h2>
-      <p>Notre force : une équipe pluridisciplinaire alliant expérience internationale et ancrage local, capable d'intervenir sur tous les continents.</p>
+      <span class="section-eyebrow" data-i18n="team.eyebrow">Notre équipe</span>
+      <h2 data-i18n="team.title">Des consultants engagés, expérimentés, reconnus.</h2>
+      <p data-i18n="team.lead">Notre force : une équipe pluridisciplinaire alliant expérience internationale et ancrage local, capable d'intervenir sur tous les continents.</p>
     </div>
     <div class="team-grid">
       <div class="member reveal">
@@ -585,42 +609,42 @@
 <section class="insights" id="insights">
   <div class="container">
     <div class="section-head reveal">
-      <span class="section-eyebrow">Publications & actualités</span>
-      <h2>Nos derniers travaux et points de vue.</h2>
-      <p>Articles, notes de réflexion et études publiées par notre équipe pour nourrir le débat sur les politiques publiques.</p>
+      <span class="section-eyebrow" data-i18n="ins.eyebrow">Publications & actualités</span>
+      <h2 data-i18n="ins.title">Nos derniers travaux et points de vue.</h2>
+      <p data-i18n="ins.lead">Articles, notes de réflexion et études publiées par notre équipe pour nourrir le débat sur les politiques publiques.</p>
     </div>
     <div class="insights-grid">
       <article class="insight reveal">
         <div class="insight-img" style="background-image:url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=900&q=80')">
-          <span class="insight-tag">Étude</span>
+          <span class="insight-tag" data-i18n="ins1.tag">Étude</span>
         </div>
         <div class="insight-body">
-          <span class="date">Avril 2026</span>
-          <h3><a href="#">Évaluer l'impact des financements climat dans les pays du Sahel</a></h3>
-          <p>Une analyse approfondie des mécanismes de financement et de leurs effets sur les politiques d'adaptation.</p>
-          <a href="#" class="read-more">Lire l'étude →</a>
+          <span class="date" data-i18n="ins1.date">Avril 2026</span>
+          <h3><a href="#" data-i18n="ins1.title">Évaluer l'impact des financements climat dans les pays du Sahel</a></h3>
+          <p data-i18n="ins1.exc">Une analyse approfondie des mécanismes de financement et de leurs effets sur les politiques d'adaptation.</p>
+          <a href="#" class="read-more" data-i18n="ins1.cta">Lire l'étude →</a>
         </div>
       </article>
       <article class="insight reveal">
         <div class="insight-img" style="background-image:url('https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=900&q=80')">
-          <span class="insight-tag">Note</span>
+          <span class="insight-tag" data-i18n="ins2.tag">Note</span>
         </div>
         <div class="insight-body">
-          <span class="date">Mars 2026</span>
-          <h3><a href="#">Cinq leçons tirées de dix ans d'évaluations en éducation</a></h3>
-          <p>Ce que les évaluations nous apprennent sur les politiques éducatives qui transforment réellement les systèmes.</p>
-          <a href="#" class="read-more">Lire la note →</a>
+          <span class="date" data-i18n="ins2.date">Mars 2026</span>
+          <h3><a href="#" data-i18n="ins2.title">Cinq leçons tirées de dix ans d'évaluations en éducation</a></h3>
+          <p data-i18n="ins2.exc">Ce que les évaluations nous apprennent sur les politiques éducatives qui transforment réellement les systèmes.</p>
+          <a href="#" class="read-more" data-i18n="ins2.cta">Lire la note →</a>
         </div>
       </article>
       <article class="insight reveal">
         <div class="insight-img" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=900&q=80')">
-          <span class="insight-tag">Tribune</span>
+          <span class="insight-tag" data-i18n="ins3.tag">Tribune</span>
         </div>
         <div class="insight-body">
-          <span class="date">Février 2026</span>
-          <h3><a href="#">Pour une culture de l'évaluation dans l'administration publique</a></h3>
-          <p>Comment ancrer durablement l'évaluation comme outil de pilotage et d'apprentissage institutionnel.</p>
-          <a href="#" class="read-more">Lire la tribune →</a>
+          <span class="date" data-i18n="ins3.date">Février 2026</span>
+          <h3><a href="#" data-i18n="ins3.title">Pour une culture de l'évaluation dans l'administration publique</a></h3>
+          <p data-i18n="ins3.exc">Comment ancrer durablement l'évaluation comme outil de pilotage et d'apprentissage institutionnel.</p>
+          <a href="#" class="read-more" data-i18n="ins3.cta">Lire la tribune →</a>
         </div>
       </article>
     </div>
@@ -631,10 +655,10 @@
 <section class="cta-strip">
   <div class="container cta-inner">
     <div class="reveal">
-      <h2>Un projet, une question, un défi public à relever ?</h2>
-      <p>Échangeons. Notre équipe revient vers vous sous 48 heures pour explorer la meilleure façon de vous accompagner.</p>
+      <h2 data-i18n="cta.title">Un projet, une question, un défi public à relever ?</h2>
+      <p data-i18n="cta.text">Échangeons. Notre équipe revient vers vous sous 48 heures pour explorer la meilleure façon de vous accompagner.</p>
     </div>
-    <a href="#contact" class="btn btn-primary reveal">Démarrer la conversation <span class="arr">→</span></a>
+    <a href="#contact" class="btn btn-primary reveal" data-i18n="cta.btn">Démarrer la conversation <span class="arr">→</span></a>
   </div>
 </section>
 
@@ -643,54 +667,54 @@
   <div class="container">
     <div class="contact-grid">
       <div class="contact-info reveal">
-        <span class="section-eyebrow">Contact</span>
-        <h2>Travaillons ensemble.</h2>
-        <p>Que vous soyez une institution publique, un bailleur de fonds, une ONG ou une entreprise engagée, nous serons heureux d'échanger sur votre projet.</p>
+        <span class="section-eyebrow" data-i18n="ct.eyebrow">Contact</span>
+        <h2 data-i18n="ct.title">Travaillons ensemble.</h2>
+        <p data-i18n="ct.lead">Que vous soyez une institution publique, un bailleur de fonds, une ONG ou une entreprise engagée, nous serons heureux d'échanger sur votre projet.</p>
         <ul class="contact-list">
           <li>
             <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div><strong>Bureau principal</strong><span>14 avenue de la République<br/>1050 Bruxelles, Belgique</span></div>
+            <div><strong data-i18n="ct.addr.t">Bureau principal</strong><span data-i18n="ct.addr.d">14 avenue de la République<br/>1050 Bruxelles, Belgique</span></div>
           </li>
           <li>
             <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-            <div><strong>Téléphone</strong><span>+32 (0)2 123 45 67</span></div>
+            <div><strong data-i18n="ct.tel.t">Téléphone</strong><span>+32 (0)2 123 45 67</span></div>
           </li>
           <li>
             <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-            <div><strong>Email</strong><span>contact@did-consulting.com</span></div>
+            <div><strong data-i18n="ct.mail.t">Email</strong><span>contact@did-consulting.com</span></div>
           </li>
           <li>
             <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <div><strong>Horaires</strong><span>Lundi – Vendredi · 9h00 – 18h00 (CET)</span></div>
+            <div><strong data-i18n="ct.hrs.t">Horaires</strong><span data-i18n="ct.hrs.d">Lundi – Vendredi · 9h00 – 18h00 (CET)</span></div>
           </li>
         </ul>
       </div>
 
-      <form class="reveal" onsubmit="event.preventDefault();alert('Merci pour votre message. Nous vous recontactons rapidement.');this.reset();">
+      <form class="reveal" id="contactForm">
         <div class="form-row">
-          <div class="form-group"><label>Prénom</label><input type="text" required /></div>
-          <div class="form-group"><label>Nom</label><input type="text" required /></div>
+          <div class="form-group"><label data-i18n="f.first">Prénom</label><input type="text" required /></div>
+          <div class="form-group"><label data-i18n="f.last">Nom</label><input type="text" required /></div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>Email professionnel</label><input type="email" required /></div>
-          <div class="form-group"><label>Organisation</label><input type="text" /></div>
+          <div class="form-group"><label data-i18n="f.email">Email professionnel</label><input type="email" required /></div>
+          <div class="form-group"><label data-i18n="f.org">Organisation</label><input type="text" /></div>
         </div>
         <div class="form-group">
-          <label>Type de demande</label>
+          <label data-i18n="f.type">Type de demande</label>
           <select>
-            <option>Évaluation de programme/projet</option>
-            <option>Étude ou recherche</option>
-            <option>Assistance technique</option>
-            <option>Renforcement de capacités</option>
-            <option>Conseil stratégique</option>
-            <option>Autre</option>
+            <option data-i18n="f.opt1">Évaluation de programme/projet</option>
+            <option data-i18n="f.opt2">Étude ou recherche</option>
+            <option data-i18n="f.opt3">Assistance technique</option>
+            <option data-i18n="f.opt4">Renforcement de capacités</option>
+            <option data-i18n="f.opt5">Conseil stratégique</option>
+            <option data-i18n="f.opt6">Autre</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Décrivez votre besoin</label>
-          <textarea placeholder="Quelques mots sur votre projet, son contexte et vos attentes…" required></textarea>
+          <label data-i18n="f.msg">Décrivez votre besoin</label>
+          <textarea data-i18n-placeholder="f.ph" placeholder="Quelques mots sur votre projet, son contexte et vos attentes…" required></textarea>
         </div>
-        <button type="submit" class="btn">Envoyer le message <span class="arr">→</span></button>
+        <button type="submit" class="btn" data-i18n="f.submit">Envoyer le message <span class="arr">→</span></button>
       </form>
     </div>
   </div>
@@ -702,38 +726,38 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="logo">D<span style="color:var(--accent)">i</span>D<small style="font-family:'Inter',sans-serif;font-weight:500;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-left:.6rem;vertical-align:middle">Consulting</small></a>
-        <p>Cabinet de conseil indépendant spécialisé dans l'évaluation et le conseil aux politiques publiques. Le nom <em>DiD</em> rend hommage à la méthode <em>Difference-in-Differences</em>, pierre angulaire de l'évaluation d'impact rigoureuse.</p>
+        <p data-i18n="ft.brand">Cabinet de conseil indépendant spécialisé dans l'évaluation et le conseil aux politiques publiques. Le nom <em>DiD</em> rend hommage à la méthode <em>Difference-in-Differences</em>, pierre angulaire de l'évaluation d'impact rigoureuse.</p>
       </div>
       <div class="footer-col">
-        <h5>Cabinet</h5>
+        <h5 data-i18n="ft.col1">Cabinet</h5>
         <ul>
-          <li><a href="#about">À propos</a></li>
-          <li><a href="#team">Équipe</a></li>
-          <li><a href="#">Carrières</a></li>
-          <li><a href="#">Presse</a></li>
+          <li><a href="#about" data-i18n="ft.c1.1">À propos</a></li>
+          <li><a href="#team" data-i18n="ft.c1.2">Équipe</a></li>
+          <li><a href="#" data-i18n="ft.c1.3">Carrières</a></li>
+          <li><a href="#" data-i18n="ft.c1.4">Presse</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Expertises</h5>
+        <h5 data-i18n="ft.col2">Expertises</h5>
         <ul>
-          <li><a href="#services">Évaluation</a></li>
-          <li><a href="#services">Études</a></li>
-          <li><a href="#services">Assistance technique</a></li>
-          <li><a href="#services">Conseil stratégique</a></li>
+          <li><a href="#services" data-i18n="ft.c2.1">Évaluation</a></li>
+          <li><a href="#services" data-i18n="ft.c2.2">Études</a></li>
+          <li><a href="#services" data-i18n="ft.c2.3">Assistance technique</a></li>
+          <li><a href="#services" data-i18n="ft.c2.4">Conseil stratégique</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Ressources</h5>
+        <h5 data-i18n="ft.col3">Ressources</h5>
         <ul>
-          <li><a href="#insights">Publications</a></li>
-          <li><a href="#">Newsletter</a></li>
-          <li><a href="#">Mentions légales</a></li>
-          <li><a href="#">Politique RGPD</a></li>
+          <li><a href="#insights" data-i18n="ft.c3.1">Publications</a></li>
+          <li><a href="#" data-i18n="ft.c3.2">Newsletter</a></li>
+          <li><a href="#" data-i18n="ft.c3.3">Mentions légales</a></li>
+          <li><a href="#" data-i18n="ft.c3.4">Politique RGPD</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 DiD Consulting. Tous droits réservés.</span>
+      <span data-i18n="ft.copy">© 2026 DiD Consulting. Tous droits réservés.</span>
       <div class="socials">
         <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.25 6.5 1.75 1.75 0 0 1 6.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0 0 13 14.19a.66.66 0 0 0 0 .14V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg></a>
         <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.8a8.49 8.49 0 0 1-2.36.64 4.13 4.13 0 0 0 1.81-2.27 8.21 8.21 0 0 1-2.61 1 4.1 4.1 0 0 0-7 3.74 11.64 11.64 0 0 1-8.45-4.29 4.16 4.16 0 0 0-.55 2.07 4.09 4.09 0 0 0 1.82 3.41 4.05 4.05 0 0 1-1.86-.51v.05a4.1 4.1 0 0 0 3.3 4 3.93 3.93 0 0 1-1.1.17 4.9 4.9 0 0 1-.77-.07 4.11 4.11 0 0 0 3.83 2.84A8.22 8.22 0 0 1 3 18.34a7.93 7.93 0 0 1-1-.06 11.57 11.57 0 0 0 6.29 1.85A11.59 11.59 0 0 0 20 8.45v-.53a8.43 8.43 0 0 0 2-2.12z"/></svg></a>
@@ -744,6 +768,225 @@
 </footer>
 
 <script>
+  /* === I18N DICTIONARY === */
+  const I18N = {
+    fr: {
+      'nav.about':'À propos','nav.services':'Expertises','nav.sectors':'Secteurs','nav.team':'Équipe','nav.insights':'Publications','nav.cta':'Nous contacter',
+      'hero.eyebrow':'Conseil indépendant · Évaluation · Études',
+      'hero.title':'Des données probantes <em>pour de meilleures politiques publiques.</em>',
+      'hero.lead':"Nous accompagnons les institutions internationales, les gouvernements et les bailleurs de fonds dans l'évaluation, la conception et la mise en œuvre de politiques publiques fondées sur les preuves.",
+      'hero.btn1':'Découvrir nos expertises <span class="arr">→</span>','hero.btn2':'Travailler avec nous',
+      'hero.stat1':'Missions menées','hero.stat2':"Pays d'intervention",'hero.stat3':'Consultants experts','hero.stat4':"Années d'expérience",
+
+      'about.eyebrow':'À propos',
+      'about.title':"Un cabinet engagé pour l'efficacité des politiques publiques.",
+      'about.p1':"Fondé par une équipe d'économistes, d'évaluateurs et de spécialistes des politiques publiques, notre cabinet se distingue par son indépendance, la rigueur de ses méthodes et son engagement à transformer les données en décisions.",
+      'about.p2':"Nous croyons qu'une politique publique bien conçue commence par une compréhension fine du contexte, des bénéficiaires et des chaînes de causalité. C'est cette conviction qui guide chacune de nos interventions.",
+      'about.pillar1.t':'Indépendance','about.pillar1.d':"Aucun lien d'intérêt, aucune complaisance. Nos conclusions ne reflètent que les faits.",
+      'about.pillar2.t':'Rigueur','about.pillar2.d':'Méthodes mixtes, triangulation, revue par les pairs : la qualité au cœur de nos livrables.',
+      'about.pillar3.t':'Pragmatisme','about.pillar3.d':'Des recommandations actionnables, ancrées dans les réalités opérationnelles.',
+      'about.pillar4.t':'Transparence','about.pillar4.d':'Méthodologie ouverte, données partagées, processus auditables.',
+      'about.quote':'« Notre mission : produire les preuves qui éclairent les décisions et améliorent la vie des populations. »',
+
+      'services.eyebrow':'Nos expertises','services.title':"Six domaines d'intervention complémentaires.",
+      'services.lead':"De l'évaluation rétrospective au conseil stratégique en passant par l'assistance technique, nous mobilisons des équipes pluridisciplinaires adaptées à chaque mission.",
+
+      'srv1.t':'Évaluation','srv1.d':"Évaluations ex-ante, à mi-parcours, finales et d'impact, conduites selon les standards internationaux (CAD-OCDE, UNEG, EvalPartners).",
+      'srv1.l1':'Évaluations de programmes et projets','srv1.l2':'Évaluations de politiques sectorielles','srv1.l3':'Évaluations stratégiques pays','srv1.l4':'Méta-évaluations et synthèses',
+
+      'srv2.t':'Études & Recherches','srv2.d':"Études diagnostiques, analyses sectorielles, recherches appliquées et travaux prospectifs pour éclairer les décideurs.",
+      'srv2.l1':"Études de faisabilité et d'opportunité",'srv2.l2':'Diagnostics sectoriels et institutionnels','srv2.l3':'Analyses coûts-bénéfices','srv2.l4':'Études prospectives et de scénarios',
+
+      'srv3.t':'Assistance technique','srv3.d':"Appui à la conception, à la mise en œuvre et au suivi de programmes complexes, sur le terrain comme à distance.",
+      'srv3.l1':"Appui à la maîtrise d'ouvrage",'srv3.l2':'Conception de cadres logiques','srv3.l3':'Systèmes de suivi-évaluation','srv3.l4':'Gestion axée sur les résultats',
+
+      'srv4.t':'Renforcement des capacités','srv4.d':"Formation, coaching et accompagnement des institutions pour ancrer durablement les bonnes pratiques d'évaluation et de pilotage.",
+      'srv4.l1':'Formations sur mesure','srv4.l2':'Ateliers méthodologiques','srv4.l3':"Mentoring d'équipes nationales",'srv4.l4':'Communautés de pratique',
+
+      'srv5.t':'Conseil stratégique','srv5.d':"Accompagnement des dirigeants dans la formulation de stratégies, la définition de priorités et la conduite du changement.",
+      'srv5.l1':'Stratégies sectorielles et nationales','srv5.l2':'Théories du changement','srv5.l3':"Plans d'action opérationnels",'srv5.l4':'Conduite du changement',
+
+      'srv6.t':'Data & Analytics','srv6.d':"Mobilisation de la donnée — quantitative, qualitative, géospatiale — pour produire des insights inédits et fonder l'action publique.",
+      'srv6.l1':'Enquêtes et collectes terrain','srv6.l2':'Analyse économétrique','srv6.l3':'Tableaux de bord et visualisation','srv6.l4':'Méthodes mixtes innovantes',
+
+      'sec.eyebrow':'Secteurs','sec.title':'Une expertise sectorielle approfondie.',
+      'sec.lead':"Nous intervenons dans les domaines où les politiques publiques ont le plus d'impact sur la vie des populations.",
+      'sec1.t':'Développement durable','sec1.d':'Climat, biodiversité, transition énergétique, économie circulaire.',
+      'sec2.t':'Éducation & Formation','sec2.d':'Systèmes éducatifs, formation professionnelle, apprentissage tout au long de la vie.',
+      'sec3.t':'Santé publique','sec3.d':'Systèmes de santé, couverture universelle, santé maternelle et infantile.',
+      'sec4.t':'Gouvernance','sec4.d':'Réformes institutionnelles, lutte contre la corruption, démocratie participative.',
+      'sec5.t':'Développement rural','sec5.d':'Agriculture, sécurité alimentaire, chaînes de valeur, foncier rural.',
+      'sec6.t':'Croissance inclusive','sec6.d':'Emploi, secteur privé, micro-finance, entrepreneuriat des jeunes.',
+      'sec7.t':'Migration & déplacement','sec7.d':'Politiques migratoires, intégration, protection des réfugiés.',
+      'sec8.t':'Égalité de genre','sec8.d':'Autonomisation des femmes, lutte contre les violences, gender mainstreaming.',
+
+      'app.eyebrow':'Notre approche','app.title':'Une méthodologie en quatre temps.',
+      'app.lead':"Chaque mission s'inscrit dans une démarche structurée et collaborative, du cadrage initial à la valorisation des résultats.",
+      'app1.t':'Cadrage','app1.d':"Compréhension du contexte, des enjeux et des attentes. Co-construction d'une matrice d'évaluation partagée.",
+      'app2.t':'Collecte','app2.d':'Revue documentaire, entretiens, missions terrain, enquêtes quantitatives, observations directes.',
+      'app3.t':'Analyse','app3.d':'Triangulation, modélisation, restitution intermédiaire et validation croisée avec les parties prenantes.',
+      'app4.t':'Restitution','app4.d':"Rapport final, recommandations actionnables, atelier de dissémination et appui à l'apprentissage.",
+
+      'team.eyebrow':'Notre équipe','team.title':'Des consultants engagés, expérimentés, reconnus.',
+      'team.lead':"Notre force : une équipe pluridisciplinaire alliant expérience internationale et ancrage local, capable d'intervenir sur tous les continents.",
+
+      'ins.eyebrow':'Publications & actualités','ins.title':'Nos derniers travaux et points de vue.',
+      'ins.lead':"Articles, notes de réflexion et études publiées par notre équipe pour nourrir le débat sur les politiques publiques.",
+      'ins1.tag':'Étude','ins1.date':'Avril 2026','ins1.title':"Évaluer l'impact des financements climat dans les pays du Sahel",
+      'ins1.exc':"Une analyse approfondie des mécanismes de financement et de leurs effets sur les politiques d'adaptation.",'ins1.cta':"Lire l'étude →",
+      'ins2.tag':'Note','ins2.date':'Mars 2026','ins2.title':"Cinq leçons tirées de dix ans d'évaluations en éducation",
+      'ins2.exc':"Ce que les évaluations nous apprennent sur les politiques éducatives qui transforment réellement les systèmes.",'ins2.cta':'Lire la note →',
+      'ins3.tag':'Tribune','ins3.date':'Février 2026','ins3.title':"Pour une culture de l'évaluation dans l'administration publique",
+      'ins3.exc':"Comment ancrer durablement l'évaluation comme outil de pilotage et d'apprentissage institutionnel.",'ins3.cta':'Lire la tribune →',
+
+      'cta.title':'Un projet, une question, un défi public à relever ?',
+      'cta.text':"Échangeons. Notre équipe revient vers vous sous 48 heures pour explorer la meilleure façon de vous accompagner.",
+      'cta.btn':'Démarrer la conversation <span class="arr">→</span>',
+
+      'ct.eyebrow':'Contact','ct.title':"Travaillons ensemble.",
+      'ct.lead':"Que vous soyez une institution publique, un bailleur de fonds, une ONG ou une entreprise engagée, nous serons heureux d'échanger sur votre projet.",
+      'ct.addr.t':'Bureau principal','ct.addr.d':'14 avenue de la République<br/>1050 Bruxelles, Belgique',
+      'ct.tel.t':'Téléphone','ct.mail.t':'Email',
+      'ct.hrs.t':'Horaires','ct.hrs.d':'Lundi – Vendredi · 9h00 – 18h00 (CET)',
+
+      'f.first':'Prénom','f.last':'Nom','f.email':'Email professionnel','f.org':'Organisation',
+      'f.type':'Type de demande',
+      'f.opt1':'Évaluation de programme/projet','f.opt2':'Étude ou recherche','f.opt3':'Assistance technique','f.opt4':'Renforcement de capacités','f.opt5':'Conseil stratégique','f.opt6':'Autre',
+      'f.msg':'Décrivez votre besoin','f.ph':"Quelques mots sur votre projet, son contexte et vos attentes…",
+      'f.submit':'Envoyer le message <span class="arr">→</span>',
+      'f.alert':'Merci pour votre message. Nous vous recontactons rapidement.',
+
+      'ft.brand':"Cabinet de conseil indépendant spécialisé dans l'évaluation et le conseil aux politiques publiques. Le nom <em>DiD</em> rend hommage à la méthode <em>Difference-in-Differences</em>, pierre angulaire de l'évaluation d'impact rigoureuse.",
+      'ft.col1':'Cabinet','ft.c1.1':'À propos','ft.c1.2':'Équipe','ft.c1.3':'Carrières','ft.c1.4':'Presse',
+      'ft.col2':'Expertises','ft.c2.1':'Évaluation','ft.c2.2':'Études','ft.c2.3':'Assistance technique','ft.c2.4':'Conseil stratégique',
+      'ft.col3':'Ressources','ft.c3.1':'Publications','ft.c3.2':'Newsletter','ft.c3.3':'Mentions légales','ft.c3.4':'Politique RGPD',
+      'ft.copy':'© 2026 DiD Consulting. Tous droits réservés.'
+    },
+    en: {
+      'nav.about':'About','nav.services':'Expertise','nav.sectors':'Sectors','nav.team':'Team','nav.insights':'Insights','nav.cta':'Contact us',
+      'hero.eyebrow':'Independent advisory · Evaluation · Research',
+      'hero.title':'Evidence-based insights <em>for better public policies.</em>',
+      'hero.lead':'We support international institutions, governments and donors in evaluating, designing and implementing evidence-based public policies.',
+      'hero.btn1':'Discover our expertise <span class="arr">→</span>','hero.btn2':'Work with us',
+      'hero.stat1':'Projects completed','hero.stat2':'Countries served','hero.stat3':'Expert consultants','hero.stat4':'Years of experience',
+
+      'about.eyebrow':'About us',
+      'about.title':'A consultancy committed to effective public policy.',
+      'about.p1':'Founded by a team of economists, evaluators and public policy specialists, our firm stands out for its independence, methodological rigour and commitment to turning data into decisions.',
+      'about.p2':"We believe that well-designed public policy starts with a fine-grained understanding of context, beneficiaries and causal chains. This conviction guides every one of our engagements.",
+      'about.pillar1.t':'Independence','about.pillar1.d':'No conflicts of interest, no compromise. Our conclusions reflect the facts only.',
+      'about.pillar2.t':'Rigour','about.pillar2.d':'Mixed methods, triangulation, peer review: quality at the heart of every deliverable.',
+      'about.pillar3.t':'Pragmatism','about.pillar3.d':'Actionable recommendations grounded in operational reality.',
+      'about.pillar4.t':'Transparency','about.pillar4.d':'Open methodology, shared data, auditable processes.',
+      'about.quote':'"Our mission: producing the evidence that informs decisions and improves people’s lives."',
+
+      'services.eyebrow':'Our expertise','services.title':'Six complementary areas of expertise.',
+      'services.lead':"From retrospective evaluation to strategic advisory and technical assistance, we deploy multidisciplinary teams tailored to each engagement.",
+
+      'srv1.t':'Evaluation','srv1.d':'Ex-ante, mid-term, final and impact evaluations conducted to international standards (OECD-DAC, UNEG, EvalPartners).',
+      'srv1.l1':'Programme and project evaluations','srv1.l2':'Sector policy evaluations','srv1.l3':'Country strategy evaluations','srv1.l4':'Meta-evaluations and synthesis',
+
+      'srv2.t':'Studies & Research','srv2.d':'Diagnostic studies, sector analyses, applied research and foresight to inform decision-makers.',
+      'srv2.l1':'Feasibility and opportunity studies','srv2.l2':'Sector and institutional diagnostics','srv2.l3':'Cost-benefit analyses','srv2.l4':'Foresight and scenario studies',
+
+      'srv3.t':'Technical assistance','srv3.d':'Support for the design, implementation and monitoring of complex programmes, on the ground or remotely.',
+      'srv3.l1':'Project ownership support','srv3.l2':'Logical framework design','srv3.l3':'Monitoring & evaluation systems','srv3.l4':'Results-based management',
+
+      'srv4.t':'Capacity building','srv4.d':'Training, coaching and support to embed evaluation and steering best practices in institutions for the long term.',
+      'srv4.l1':'Tailored training programmes','srv4.l2':'Methodological workshops','srv4.l3':'Mentoring of national teams','srv4.l4':'Communities of practice',
+
+      'srv5.t':'Strategic advisory','srv5.d':'Supporting leaders in strategy formulation, priority setting and change management.',
+      'srv5.l1':'Sector and national strategies','srv5.l2':'Theories of change','srv5.l3':'Operational action plans','srv5.l4':'Change management',
+
+      'srv6.t':'Data & Analytics','srv6.d':'Harnessing data — quantitative, qualitative, geospatial — to generate fresh insights and underpin public action.',
+      'srv6.l1':'Surveys and field data collection','srv6.l2':'Econometric analysis','srv6.l3':'Dashboards and data visualisation','srv6.l4':'Innovative mixed methods',
+
+      'sec.eyebrow':'Sectors','sec.title':'Deep sector expertise.',
+      'sec.lead':"We work in the areas where public policy has the greatest impact on people’s lives.",
+      'sec1.t':'Sustainable development','sec1.d':'Climate, biodiversity, energy transition, circular economy.',
+      'sec2.t':'Education & Training','sec2.d':'Education systems, vocational training, lifelong learning.',
+      'sec3.t':'Public health','sec3.d':'Health systems, universal coverage, maternal and child health.',
+      'sec4.t':'Governance','sec4.d':'Institutional reform, anti-corruption, participatory democracy.',
+      'sec5.t':'Rural development','sec5.d':'Agriculture, food security, value chains, rural land tenure.',
+      'sec6.t':'Inclusive growth','sec6.d':'Employment, private sector, microfinance, youth entrepreneurship.',
+      'sec7.t':'Migration & displacement','sec7.d':'Migration policies, integration, refugee protection.',
+      'sec8.t':'Gender equality','sec8.d':"Women’s empowerment, combating violence, gender mainstreaming.",
+
+      'app.eyebrow':'Our approach','app.title':'A four-step methodology.',
+      'app.lead':'Every engagement follows a structured, collaborative process, from initial scoping to dissemination of findings.',
+      'app1.t':'Scoping','app1.d':'Understanding context, issues and expectations. Co-creating a shared evaluation matrix.',
+      'app2.t':'Data collection','app2.d':'Document review, interviews, field missions, quantitative surveys, direct observation.',
+      'app3.t':'Analysis','app3.d':'Triangulation, modelling, interim debrief and cross-validation with stakeholders.',
+      'app4.t':'Reporting','app4.d':'Final report, actionable recommendations, dissemination workshop and learning support.',
+
+      'team.eyebrow':'Our team','team.title':'Committed, experienced and trusted consultants.',
+      'team.lead':'Our strength: a multidisciplinary team blending international experience with local roots, ready to operate on every continent.',
+
+      'ins.eyebrow':'Publications & news','ins.title':'Our latest work and perspectives.',
+      'ins.lead':'Articles, briefings and studies published by our team to enrich the public policy debate.',
+      'ins1.tag':'Study','ins1.date':'April 2026','ins1.title':'Evaluating the impact of climate finance in Sahel countries',
+      'ins1.exc':'An in-depth analysis of financing mechanisms and their effects on adaptation policies.','ins1.cta':'Read the study →',
+      'ins2.tag':'Brief','ins2.date':'March 2026','ins2.title':'Five lessons from ten years of education evaluations',
+      'ins2.exc':'What evaluations teach us about education policies that truly transform systems.','ins2.cta':'Read the brief →',
+      'ins3.tag':'Opinion','ins3.date':'February 2026','ins3.title':'Building an evaluation culture in public administration',
+      'ins3.exc':'How to embed evaluation as a tool for steering and institutional learning.','ins3.cta':'Read the opinion →',
+
+      'cta.title':'Have a project, a question, a public challenge to tackle?',
+      'cta.text':"Let’s talk. Our team will get back to you within 48 hours to discuss the best way forward.",
+      'cta.btn':'Start the conversation <span class="arr">→</span>',
+
+      'ct.eyebrow':'Contact','ct.title':"Let’s work together.",
+      'ct.lead':"Whether you are a public institution, a donor, an NGO or a purpose-driven company, we’d be delighted to discuss your project.",
+      'ct.addr.t':'Headquarters','ct.addr.d':'14 avenue de la République<br/>1050 Brussels, Belgium',
+      'ct.tel.t':'Phone','ct.mail.t':'Email',
+      'ct.hrs.t':'Hours','ct.hrs.d':'Monday – Friday · 9:00 – 18:00 (CET)',
+
+      'f.first':'First name','f.last':'Last name','f.email':'Work email','f.org':'Organisation',
+      'f.type':'Type of enquiry',
+      'f.opt1':'Programme/project evaluation','f.opt2':'Study or research','f.opt3':'Technical assistance','f.opt4':'Capacity building','f.opt5':'Strategic advisory','f.opt6':'Other',
+      'f.msg':'Tell us about your needs','f.ph':"A few words about your project, its context and your expectations…",
+      'f.submit':'Send message <span class="arr">→</span>',
+      'f.alert':"Thanks for your message. We will get back to you shortly.",
+
+      'ft.brand':"Independent consultancy specialised in evaluation and public policy advisory. The name <em>DiD</em> pays tribute to the <em>Difference-in-Differences</em> method, a cornerstone of rigorous impact evaluation.",
+      'ft.col1':'Company','ft.c1.1':'About','ft.c1.2':'Team','ft.c1.3':'Careers','ft.c1.4':'Press',
+      'ft.col2':'Expertise','ft.c2.1':'Evaluation','ft.c2.2':'Studies','ft.c2.3':'Technical assistance','ft.c2.4':'Strategic advisory',
+      'ft.col3':'Resources','ft.c3.1':'Insights','ft.c3.2':'Newsletter','ft.c3.3':'Legal notice','ft.c3.4':'Privacy policy',
+      'ft.copy':'© 2026 DiD Consulting. All rights reserved.'
+    }
+  };
+
+  let currentLang = 'fr';
+  function setLang(lang){
+    if(!I18N[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      const val = I18N[lang][key];
+      if(val !== undefined) el.innerHTML = val;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+      const key = el.getAttribute('data-i18n-placeholder');
+      const val = I18N[lang][key];
+      if(val !== undefined) el.placeholder = val;
+    });
+    document.querySelectorAll('#langSwitch button').forEach(b=>{
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+  }
+
+  document.querySelectorAll('#langSwitch button').forEach(b=>{
+    b.addEventListener('click', ()=>setLang(b.dataset.lang));
+  });
+
+  // Form
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert(I18N[currentLang]['f.alert']);
+    this.reset();
+  });
+
   // Nav scroll effect
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
